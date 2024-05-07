@@ -4,7 +4,7 @@ from django.db import models
 class Users(models.Model):
     name=models.CharField(max_length=25,verbose_name='enter your name')
     family=models.CharField(max_length=25,verbose_name='enter your family')
-    phone=models.CharField(max_length=11,verbose_name='enter your phone namber')
+    phone=models.CharField(max_length=11,verbose_name='enter your phone number')
     def __str__(self):
         return self.name +'' ''+ self.family
 
