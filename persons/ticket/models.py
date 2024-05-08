@@ -11,7 +11,7 @@ class Users(models.Model):
 class Ticket(models.Model):
     user=models.ForeignKey(Users, on_delete=models.CASCADE)
     Ticket_id=models.ForeignKey('self', on_delete=models.CASCADE,blank=True,null=True)
-    title=models.CharField(max_length=25,verbose_name='enter your title')
+    title=models.CharField(max_length=25,help_text='enter your title')
     description=models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
 
@@ -24,3 +24,7 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.title 
+    
+
+
+    
