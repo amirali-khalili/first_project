@@ -1,5 +1,5 @@
-import graphene # type: ignore
-from graphene_django import DjangoObjectType # type: ignore #used to change Django object into a format that is readable by GraphQL
+import graphene   
+from graphene_django import DjangoObjectType  
 from app.models import Contact
 
 class ContactType(DjangoObjectType):

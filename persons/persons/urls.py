@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
-from graphene_django.views import GraphQLView # type: ignore #View for the user interface
-from graphql_tutorial.schema import schema # type: ignore #Schema we want to query
+from graphene_django.views import GraphQLView #View for the user interface
+from persons.schema import schema #Schema we want to query
 
 urlpatterns = [
     path('admin/', admin.site.urls),
