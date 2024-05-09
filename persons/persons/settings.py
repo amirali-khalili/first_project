@@ -39,9 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ticket',
     'schools',
+    'app',
+    'graphene_django'
+
 ]
 
-
+GRAPHENE = {
+    "SCHEMA": "persons.schema.schema"
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
