@@ -1,0 +1,33 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Academy_Backend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy React app via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /home/root/refahinew/frontend/panel
+            git pull origin main
+            npm install
+            npm run build
+            pm2 delete panel || true
+            pm2 start npx --name "panel" -- serve -s build -l 3001
+            pm2 restart panel
+            pm2 save
+

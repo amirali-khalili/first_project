@@ -1,0 +1,26 @@
+name: Deploy to cPanel Server
+
+# هر وقت push به برنچ main انجام شد
+on:
+  push:
+    branches:
+      - main  # اگر برنچ اصلی master است، main را به master تغییر بده
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Deploy to server via SSH
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}        # آی‌پی یا دامنه هاست
+        username: ${{ secrets.USERNAME }} # نام کاربری SSH
+        key: ${{ secrets.SSH_KEY }}       # کلید خصوصی SSH
+        port: ${{ secrets.PORT }}         # معمولا 22
+        script: |
+          cd /home/itolsir/organization.itols.ir
+          git pull origin main
