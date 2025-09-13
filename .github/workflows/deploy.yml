@@ -18,22 +18,7 @@ jobs:
         with:
           host: organization.itols.ir
           username: itolsir
-          key: |
-            -----BEGIN OPENSSH PRIVATE KEY-----
-            b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
-            NhAAAAAwEAAQAAAgEArQztt+uf0cQev5KG53dYzAQMiFECwpqhW5bSBPPyljyB0WQFnQ4j
-            Hvat3Isb183IiGLXESisrskBDUYmR+AuRKPQgrpG5N04/8BY5KRDaMK1lzGKunz0uCCNcB
-            s7EhKE56fRojCBYRRBEZl/AQMZ3ubKxaIIPck9BuwFz8NnaKDNFDeoqj7eO9TJMd8qgcSK
-            fS6AOWcK09yolzqFlyNbrI7sk+0KEe2yr7TsYqYC/H5s4KunybWcv+83Jg4Y+Y3E11eJQp
-            ARkQq9VRYZ0395k3sTVgWirRwjBFBASc6uviYQXnydDh2cq0pg+Mu2ha+WfJAMcRfX3SaO
-            +XJ8lO7YMweqa+b1Ul/oqw4HAyDgfVhawxkKydK8k4Wdrwrs+bn0/qxsuh/jfuJ4qQoUnC
-            8q/VB6uCPGgHn7u/Ygjw1rXEkJi1Hfa5wMeXfTLZi0cGwZKeEGuuGXx6ds+OS/I1+vOvtK
-            DeVuIERfHwe+EbqrpTPweVhsZ8rK94s7GHBSPoSXDngAc+sYQygBZHUzdkbawy/8XOCQqZ
-            asB+OCpSBSpoVZfUjh9T01mEsnyt8iC2axCAMtRtnG6WQ8LsuY+DbbaAbeh+aE6bBMC0wa
-            rh8yk9dCFHNVsCHEng3WcGObnjl3zSFmKcyCuXS3yRpfyM+2tTcnwmPMQhL5hG+g5/HvqC
-            EAAAADAQABAAACACpOBlFXp3b7CH9R3Wv5p7ocZUnv8ApODhNb...
-            -----END OPENSSH PRIVATE KEY-----
-          port: 22
+          key: ${{ secrets.SSH_KEY}}
           script: |
             echo "Deploy started on $(date)"
             source /home/itolsir/virtualenv/organization.itols.ir/3.11/bin/activate
