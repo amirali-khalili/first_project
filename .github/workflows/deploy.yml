@@ -1,26 +1,51 @@
-name: Deploy to cPanel Server
+name: Django Auto Deploy
 
-# هر وقت push به برنچ main انجام شد
 on:
   push:
     branches:
-      - main  # اگر برنچ اصلی master است، main را به master تغییر بده
+      - main  # یا master اگر برنچ اصلی master است
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    # 1️⃣ checkout کد
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Deploy to server via SSH
+    # 2️⃣ اتصال به هاست و اجرای دستورات
+    - name: Deploy via SSH
       uses: appleboy/ssh-action@v0.1.7
       with:
-        host: ${{ secrets.HOST }}        # آی‌پی یا دامنه هاست
-        username: ${{ secrets.USERNAME }} # نام کاربری SSH
-        key: ${{ secrets.SSH_KEY }}       # کلید خصوصی SSH
-        port: ${{ secrets.PORT }}         # معمولا 22
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
         script: |
+          echo "Deploy started on $(date)"
+          
+          # مسیر پروژه Django
           cd /home/itolsir/organization.itols.ir
-          git pull origin main
+          
+          # pull آخرین تغییرات
+          git fetch origin
+          git reset --hard origin/main
+          
+          # فعال کردن virtualenv (فرض می‌کنیم در مسیر venv هست)
+          source /home/itolsir/organization.itols.ir/venv/bin/activate
+          
+          # نصب dependencies
+          pip install -r requirements.txt
+          
+          # migrate دیتابیس
+          python manage.py migrate
+          
+          # collectstatic
+          python manage.py collectstatic --noinput
+          
+          # restart پروژه (بسته به سرور شما: systemd, gunicorn, uwsgi یا cPanel)
+          # اگر با cPanel و Passenger است:
+          touch tmp/restart.txt
+          
+          echo "Deploy finished on $(date)"
